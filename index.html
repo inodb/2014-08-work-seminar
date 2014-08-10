@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Ettema Lab Information Management System</title>
+
+        <meta name="description" content="Presentation of the LIMS developed by
+        BILS for the Ettema Lab">
+		<meta name="author" content="Ino de Bruijn">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>LIMS Developers Workshop</h1>
+					<h3>Ettema Lab</h3>
+					<p>
+						<small><a href="http://ino.pm">Ino de Bruijn</a> / <a
+                                href="http://twitter.com/inodb">@inodb</a></small>
+                        <br />
+                            <a href="http://bils.se"><img
+                                src="img/bilslogo-small.jpg"
+                                style="border-style: none" alt="BILS" /></a>
+					</p>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Part 1 slightly geeky
+
+                        Goal - Updating the documentation
+
+                        - Git
+                        - Github
+                        - Fork & Pull
+                        - Updating documentation
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Git (2005)
+
+                        - Distributed Revision Control System
+                        - Revision control, helps to keep track of history and different versions 
+                        - Distributed, everybody has full history of the repository
+                            - Older centralized versioning systems
+                            - Concurrent Version System (CVS) 1990
+                            - Apache Subversion (SVN) 2000
+                        - Linux kernel's revision control system is git (both by Linus Torvalds)
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Github (2008)
+
+                        - Website that hosts Git repositories
+                        - Feautures
+                            - Browse code
+                            - Nicely display common formats (MarkDown, ReStructuredText, csv, json, geojson)
+                            - Issue tracker (comments etc)
+                            - Unlimited public repositories
+                            - Private repositories for money (free @ [bitbucket](https://bitbucket.org))
+                            - Group repositiories
+                            - Fork & pull
+                        - The LIMS is hosted [here](https://github.com/bils/scglims)
+                        - The Linux kernel is also hosted [there](https://github.com/torvalds/linux)
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Making changes to the documentation
+
+                        * Make a Github account
+                        * Go to the [documentation](http://scglims.readthedocs.org/en/latest/naming_scheme.html)
+                        * Click on Edit on Github at the top
+                        * Edit the file
+                            * This will fork (copy) the repository to your own account
+                            * You make your changes there
+                            * The pull request will be done afterwards
+                            * Me/Lionel will check whether the pull request is ok or not
+                            * If the pull request is not okay, you can continue to make changes until it is
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Part 2 hella geeky
+
+                        Goal - Changing zhe code
+
+                        - Git Basics & Command Line Interface
+                        - LIMS technical breakdown
+                            - Django
+                            - Travis Continuous Integration for testing
+                            - Sphinx Read the Docs
+                            - LIMS on Helicoprion
+                        - Changing zhe code
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Git basics & Command Line Interface
+
+                        * Fork the repository to your own account (otherwise you can only edit your own repo)
+                        * Clone the repository (aka download it):
+
+                        ```sh
+                        USERNAME=inodb
+                        mkdir -p ~/github
+                        cd ~/github
+                        git clone https://github.com/$USERNAME/SCGLIMS
+                        ls SCGLIMS/.git
+                        ```
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Git basics & Command Line Interface
+
+                        * Now you can make some changes to the files
+                        * In this case we edit the README.rst
+
+                        ```bash
+                        cd ~/github/SCGLIMS
+                        # checkout which files have changed
+                        git status
+                        # stage the files that you want to commit
+                        git add README.rst
+                        # commit the files
+                        git commit -m "Change Single Cell LIMS to LIMS"
+                        # check out the log
+                        git log
+                        # list remote repositories
+                        git remote -v
+                        # push your local commits to your Github repo
+                        git push origin master
+                        ```
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Git basics & Command Line Interface
+                
+                        * Git uses [branches](http://git-scm.com/book/en/Git-Branching-Basic-Branching-and-Merging)
+                            * each new feauture/bugfix on a different branch
+                            * merge features to master branch once done
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Git basics & Command Line Interface
+                        * List all branches
+
+                        ```bash
+                        $ cd ~/github/SCGLIMS
+                        $ git branch -a
+                        * master
+                        remotes/origin/HEAD -> origin/master
+                        remotes/origin/master
+                        ```
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Git basics & Command Line Interface
+                
+                        * Create a new branch and switch to it
+
+                        ```bash
+                        $ git checkout -b new_feature
+                        $ git branch
+                        master
+                        * new_feature
+                        ```
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Git basics & Command Line Interface
+                
+                        * Push the new branch up to your GitHub account
+
+                        ```bash
+                        $ git remote -v 
+                        origin  https://github.com/inodb/SCGLIMS (fetch)
+                        origin  https://github.com/inodb/SCGLIMS (push)
+                        $ git push origin new_feature
+                        To https://github.com/inodb/SCGLIMS
+                         * [new branch]      new_feature -> new_feature
+                        $ git push origin --delete new_feature
+                        $ git branch -D new_feature
+                        ```
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Git basics & Command Line Interface
+                
+                        * Merge a branch
+
+                        ```bash
+                        $ git checkout master
+                        $ git merge new_feature
+                        ```
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Git basics & Command Line Interface
+                
+                        * Delete the branch
+
+                        ```bash
+                        $ git push origin --delete new_feature
+                        $ git branch -D new_feature
+                        ```
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Git basics & Command Line Interface
+                
+                        * If you are writing scripts without version control
+                        * NOOOOOOO!!!
+                        * Please make at least one repo
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## LIMS Technical breakdown
+                
+                        * Everything written in Python
+                            * [Django web framework](https://docs.djangoproject.com/en/1.6/)
+                        * Uses database of choice
+                            * PostgreSQL on Helicoprion
+                            * SQLite local
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## LIMS Technical breakdown
+                
+                        * Travis Continuous Integration for testing
+                            * ``SCGLIMS/.travis.yml``
+                        * Coveralls.io shows test code coverage
+                        * Sphinx in docs/
+                            * ReadTheDocs hosts the output
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## LIMS Technical breakdown
+                
+                        * Helicoprion has a PostgreSQL server
+                        * It has a copy of the code on /local/lims
+                            * hidden production settings
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Changing zhe code
+                
+                        * Use your forked repo
+                        * Follow installation instructions from the [repo](https://github.com/bils/scglims)
+                        * Make changes and push them to your repo
+                        * Click on pull request from Github at your own repo 
+                        * Merging is decided by me or Lionel
+                    </script>
+				</section>
+                <section>
+                    <h2>Bugs or features?</h2>
+                    <img src="img/keep-calm-and-send-a-pull-request.gif" alt="Pull Request" /><br />
+                    Presentation at<br /><a
+                        href="http://bit.ly/inotalks">bit.ly/inotalks</a>
+                </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+                slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
