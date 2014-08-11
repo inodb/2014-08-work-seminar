@@ -448,10 +448,11 @@
 					<p>
 						<small><a href="http://ino.pm">Ino de Bruijn</a> / <a
                                 href="http://twitter.com/inodb">@inodb</a></small>
-                        <!--<br />
-                            <a href="http://bils.se"><img
+                         <!--<a href="http://bils.se"><img
                                 src="img/bilslogo-small.jpg"
                                 style="border-style: none" alt="BILS" /></a>-->
+                        <br />
+                        <small>Presentation at <a href="http://bit.ly/mgseminar">bit.ly/mgseminar</a></small>
 					</p>
 				</section>
                 <section data-markdown>
@@ -505,12 +506,24 @@
 				</section>
                 <section data-markdown>
                     <script type="text/template">
+                    ## Single genome
+                    
+                    - Estimate coverage distribution over genome
+                    - Identify repeats
+                    - Regions appearing multiple times
+                    </script>
+				</section>
+                <section data-markdown>
+                    <script type="text/template">
                     ## Metagenomics complicates the process
                     
                     - number of genomes unknown
-                    - closely related organisms
+                    - coverage of genomes differs
+                        - different abundances/length per genome
                         - short *k* for low abundant
-                        - large *k* for abundant
+                        - large *k* for high abundant
+                    - closely related organisms
+                        - shared regions > *k*
                     </script>
 				</section>
                 <section data-markdown>
@@ -532,17 +545,17 @@
                 <section data-markdown>
                     <script type="text/template">
                     ## Assembly recipes
-                    - Contiging
+                    - Contiging single kmer
                     ```bash
                     {velvet,ray,metavelvet}noscaf
                     ```
-                    - Scaffolding
+                    - Scaffolding single kmer
                     ```bash
                     {velvet,ray,metavelvet}scaf
                     {velvet,ray,metavelvet}noscaf =>
                     {velvet,ray,metavelvet}bambus2
                     ```
-                    - Merging kmers
+                    - Merging kmers 21 to 75
                     ```bash
                     {velvet,ray,metavelvet}noscaf =>
                     {newbler,minimus2}
@@ -600,6 +613,8 @@
                     - Purity of a contig
                         - Largest alignment coverage times identity
                         - Expressed as ratio of contig length
+                        - Encompasses many erroneous features
+                            - chimericity, errors, indels, inversions, relocations
                     - Metagenome coverage
                         - How much of the reference covered by purest
                         alignments of contigs
@@ -634,6 +649,7 @@
                     {velvet,ray}noscafnewbler
                     ```
                     - Scaffolding and Meta-Velvet don't work well on this data
+                    - Rule of thumb high coverage indicates high purity
                     </script>
 				</section>
                 <section data-markdown>
@@ -645,9 +661,10 @@
                 <section data-markdown>
                     <script type="text/template">
                     ## CONCOCT
+                    - automated unsupervised binning
                     - Information used
                         - Composition of contig
-                        - Coverage in multiple samples
+                        - Coverage of contig in multiple samples
                     - Algorithm
                         - Combined vector composition and coverage
                         - PCA to reduce dimensions *D* to 90% of information
@@ -681,7 +698,7 @@
                         - only two clusters for five strains
                         - probably insufficient strain contigs
                     - Sharon 2013 11 fecal samples first month preterm infant
-                        - same as manual inspecting ESOM in paper
+                        - same as manually inspecting ESOM in paper
                     - Siga toxin-producing E Coli (STEC) 2011 outbreak 53 fecal samples
                         - 297 clusters
                         - 2 clusters representing outbreak genome
@@ -710,7 +727,7 @@
                             - University of Glasgow
                         - Hydrothermal Vents near Hawaii
                             - Uppsala University
-                        - Moose Microbiome
+                        - Moose Microbiomes
                             - KTH Royal Institute of Technology, Sweden
                     </script>
 				</section>
@@ -742,6 +759,7 @@
                             - PostgreSQL backend
                         - The LIMS is hosted on [github](https://github.com/bils/scglims)
                         - Demo version on [heroku](http://bit.ly/ettlims-heroku)
+                            - admin user/pass inodb/inodb
                     </script>
 				</section>
                 <section data-markdown>
